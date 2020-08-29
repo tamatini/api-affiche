@@ -1,0 +1,6 @@
+#!/bin/sh
+ROOT=$(dirname $0)/..
+PYTHON=$ROOT/VENV/bin/python3
+APP=$ROOT/run.py
+$PYTHON $APP
+exit $?
