@@ -14,11 +14,11 @@ class MemorySchema(ma.SQLAlchemyAutoSchema):
 
 
 class MemoryDto:
-	api = Namespace('memory', description="Mémoire vive")
+	api = Namespace("memory", description="Mémoire vive")
 	memory = api.model(
-		'Memory', {
-			'memory_capacity': fields.String(required=True, description="Capacité de la mémoire vive"),
-			'memory_type': fields.String(required=True, description="Type de mémoire vive"),
-			'memory_frequency': fields.String(required=True, description="Fréquence de la mémoire vive")
+		"Memory", {
+			"memory_capacity": fields.String(required=True, description="Capacité de la mémoire vive"),
+			"memory_type": fields.String(required=True, description="Type de mémoire vive"),
+			"memory_frequency": fields.String(required=True, description="Fréquence de la mémoire vive")
 		}
 	)

@@ -58,6 +58,6 @@ class BrandTestById(TestEnv):
 
 	def test_delete_by_id(self):
 		new_brand(self)
-		response=self.app.delete(url+'id=1')
+		response = self.app.delete(url+'id=1')
 		self.assertEqual(201, response.status_code)
 

@@ -8,37 +8,50 @@ from ... import db
 from ..brand.controller import BrandFilter
 from ..graphics.controller import GraphicsFilter
 
-
 api = ComputerDto.api
 computer = ComputerDto.computer
 schema = ComputerSchema
 
 
-
-class ComputerFilter():
-	def all(model, brand_id, graphics_id, processor_id, memory_id, harddrive_id, screen_id,
-	        wifi, bluetooth, weight ,cdrom, usb2, usb3, usbC, hdmi, vga, prix, prix_promo, ean):
+class ComputerFilter:
+	def all(self, model, brand_id, graphics_id, processor_id, memory_id, harddrive_id, screen_id, wifi, bluetooth,
+	        weight, cdrom, usb2, usb3, usbC, hdmi, vga, prix, prix_promo, ean):
 		return Computer.query.filter_by(
-			model = model, brand_id = brand_id, graphics_id = graphics_id, processor_id = processor_id,
-			memory_id = memory_id, harddrive_id = harddrive_id, screen_id = screen_id, wifi = wifi,
-			bluetooth = bluetooth, weight = weight, cdrom = cdrom, usb2 = usb2, usb3 = usb3, usbC = usbC,
-			hdmi = hdmi, vga = vga, prix = prix, prix_promo = prix_promo, ean = ean
+			model=model,
+			brand_id=brand_id,
+			graphics_id=graphics_id,
+			processor_id=processor_id,
+			memory_id=memory_id,
+			harddrive_id=harddrive_id,
+			screen_id=screen_id,
+			wifi=wifi,
+			bluetooth=bluetooth,
+			weight=weight,
+			cdrom=cdrom,
+			usb2=usb2,
+			usb3=usb3,
+			usbC=usbC,
+			hdmi=hdmi,
+			vga=vga,
+			prix=prix,
+			prix_promo=prix_promo,
+			ean=ean
 		).first()
 
-	def id(id):
-		return Computer.query.filter_by(id=id).first()
+	def id(self):
+		return Computer.query.filter_by(id=self).first()
 
-	def model(model):
-		return Computer.query.filter_by(model=model).first()
+	def model(self):
+		return Computer.query.filter_by(model=self).first()
 
-	def brand(id):
-		return Computer.query.filter_by(brand_id=id).first()
+	def brand(self):
+		return Computer.query.filter_by(brand_id=self).first()
 
-	def graphics(id):
-		return Computer.query.filter_by(graphics_id=id)
+	def graphics(self):
+		return Computer.query.filter_by(graphics_id=self)
 
-	def ean(ean):
-		return Computer.query.filter_by(ean=ean).first()
+	def ean(self):
+		return Computer.query.filter_by(ean=self).first()
 
 
 @api.route('/')
@@ -52,8 +65,10 @@ class ComputerGet(Resource):
 		model, brand_id, graphics_id = rq_json["model"], rq_json["brand_id"], rq_json["graphics_id"]
 		processor_id, memory_id, harddrive_id = rq_json["processor_id"], rq_json["memory_id"], rq_json["harddrive_id"]
 		screen_id, wifi, bluetooth = rq_json["screen_id"], rq_json["wifi"], rq_json["bluetooth"]
-		weight, cdrom, usb2, usb3, ean = rq_json["weight"], rq_json["cdrom"], rq_json["usb2"], rq_json["usb3"], rq_json["ean"]
-		usbC, hdmi, vga, prix, prix_promo = rq_json["usbC"], rq_json["hdmi"], rq_json["vga"], rq_json["prix"], rq_json["prix_promo"]
+		weight, cdrom, usb2, usb3, ean = rq_json["weight"], rq_json["cdrom"], rq_json["usb2"], rq_json["usb3"], rq_json[
+			"ean"]
+		usbC, hdmi, vga, prix, prix_promo = rq_json["usbC"], rq_json["hdmi"], rq_json["vga"], rq_json["prix"], rq_json[
+			"prix_promo"]
 
 		if ComputerFilter.all(model, brand_id, graphics_id, processor_id, memory_id, harddrive_id,
 		                      screen_id, wifi, bluetooth, weight, cdrom, usb2, usb3, usbC,
@@ -112,6 +127,7 @@ class ComputerId(Resource):
 			return api.payload, 201
 		return abort(404, "Ce pc n'existe pas")
 
+
 @api.route('/model=<string:model>')
 class ComputerModel(Resource):
 	def get(self, model):
@@ -134,8 +150,8 @@ class ComputerGraphics(Resource):
 		if GraphicsFilter.brand(graphics).first():
 			cg_brand = GraphicsFilter.brand(graphics).first()
 			return ComputerSchema(many=True).dumps(ComputerFilter.graphics(cg_brand.id).all())
-		elif GraphicsFilter.model(graphics).first():
-			cg_model = GraphicsFilter.model(graphics).first()
+		elif GraphicsFilter.model(graphics):
+			cg_model = GraphicsFilter.model(graphics)
 			return ComputerSchema(many=True).dumps(ComputerFilter.graphics(cg_model.id).all())
 		return abort(404, "Cette carte graphique n'existe pas")
 

@@ -9,21 +9,21 @@ api = GraphicsDto.api
 graphics = GraphicsDto.graphics
 
 
-class GraphicsFilter():
+class GraphicsFilter:
 	def all(brand, model, memory):
 		return Graphics.query.filter_by(graphics_brand=brand, graphics_model=model, graphics_memory=memory).first()
 
-	def id(id):
-		return Graphics.query.filter_by(id=id).first()
+	def id(self):
+		return Graphics.query.filter_by(id=self).first()
 
-	def brand(brand):
-		return Graphics.query.filter_by(graphics_brand=brand)
+	def brand(self):
+		return Graphics.query.filter_by(graphics_brand=self)
 
-	def model(model):
-		return Graphics.query.filter_by(graphics_model=model).first()
+	def model(self):
+		return Graphics.query.filter_by(graphics_model=self).first()
 
-	def memory(memory):
-		return Graphics.query.filter_by(graphcis_memory=memory)
+	def memory(self):
+		return Graphics.query.filter_by(graphcis_memory=self)
 
 
 @api.route("/")
@@ -45,6 +45,7 @@ class GraphicsGet(Resource):
 		db.session.add(Graphics(graphics_brand=brand, graphics_model=model, graphics_memory=memory))
 		db.session.commit()
 		return api.payload, 201
+
 
 @api.route('/brand=<string:brand>')
 class GraphicsGetByBrand(Resource):
@@ -75,8 +76,8 @@ class GraphicGetById(Resource):
 	@api.expect(graphics)
 	def put(self, id):
 		if GraphicsFilter.id(id):
-			GraphicsFilter.id(id).graphics_model=request.get_json()['graphics_model']
-			GraphicsFilter.id(id).graphics_brand=request.get_json()['graphics_brand']
+			GraphicsFilter.id(id).graphics_model = request.get_json()['graphics_model']
+			GraphicsFilter.id(id).graphics_brand = request.get_json()['graphics_brand']
 			db.session.commit()
 			return api.payload, 201
 		return abort(404, "Cette carte graphique n'existe pas")

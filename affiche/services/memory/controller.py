@@ -8,7 +8,7 @@ from .dto import MemoryDto, MemorySchema
 api = MemoryDto.api
 memory = MemoryDto.memory
 
-class MemoryFilter():
+class MemoryFilter:
 	def all(capacity, type, frequency):
 		return Memory.query.filter_by(
 			memory_capacity= capacity,

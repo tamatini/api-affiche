@@ -3,3 +3,4 @@
 .vscode
 VENV/
 __pycache__
+affiche/flask_boilerplate_main.db
